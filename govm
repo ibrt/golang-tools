@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+set -e
+
+function print_usage {
+	echo "usage: govm [<flags>] <command> [<args> ...]"
+	echo ""
+	echo "A little Bash script to install & manage multiple versions of the Go toolchain on OSX."
+	echo 
+	echo "Flags:"
+	echo
+	echo "  -h,  --help  Print a summary help and exit."
+	echo
+	echo "Commands:"
+	echo 
+	echo "  install <version>"
+	echo "    Downloads the given Go toolchain version and installs it in '~/.govm/<version>'."
+	echo "    See the 'activate' command for instructions on how to activate an installed version."
+	echo "    e.g. 'govm install 1.10'"
+	echo
+	echo "  uninstall <version>"
+	echo "    Removes the given Go toolchain version from '~/.govm/<version>'."
+	echo "    e.g. 'govm uninstall 1.10'"
+	echo
+	echo "  activate <version>"
+	echo "    Prints out the variable exports needed to use the given Go toolchain version."
+	echo "    Copy them to your '~/.bash_profile' or similar to activate this version as default."
+	echo "    You can 'eval \$(govm activate 1.10)' to activate this version for the current session. "
+	echo
+}
+
+function cmd_install {
+	if [[ -d "$HOME/.govm/go$1" ]]; then
+		echo "error: $1 is already installed"
+		exit 1
+	fi
+
+	TMPDIR=$(mktemp -d -t "gobin")
+	trap 'rm -rf "$TMPDIR"' EXIT
+
+	curl -o /dev/null -I -s -f "https://storage.googleapis.com/golang/go$1.darwin-amd64.tar.gz" || (echo "error: go$1 not found"; exit 1)
+	curl -o "$TMPDIR/go.tar.gz" -q -# -f "https://storage.googleapis.com/golang/go$1.darwin-amd64.tar.gz"
+	echo -en "\033[1A\033[K"
+	tar -xf "$TMPDIR/go.tar.gz" -C "$TMPDIR"
+	mkdir -p "$HOME/.govm"
+	mv "$TMPDIR/go" "$HOME/.govm/go$1"
+
+	echo "installed: go $1 at ~/.govm/go$1"
+}
+
+function cmd_uninstall {
+	check_installed "$1"
+	rm -rf "$HOME/.govm/go$1"
+	echo "uninstalled: go $1"
+}
+
+function cmd_activate {
+	check_installed "$1"
+	echo 'export GOROOT="$HOME/.govm/go'$1'"'
+	echo 'export PATH="$HOME/.govm/go'$1'/bin:$PATH"'
+	echo "# use 'eval \$(govm activate $1)' or add the exports to your '~/.bash_profile'"
+}
+
+function check_installed {
+	if [[ ! -d "$HOME/.govm/go$1" ]]; then
+		(>&2 echo "error: go $1 is not installed")
+		exit 1
+	fi
+}
+
+function check_count {
+	if [[ "$1" != "$2" ]]; then
+		print_usage
+		exit 1
+	fi
+}
+
+case $1 in
+-h|--help)
+	check_count "$#" "1"
+	print_usage
+	exit 0
+	;;
+install)
+	check_count "$#" "2"
+	cmd_install "$2"
+	;;
+uninstall)
+	check_count "$#" "2"
+	cmd_uninstall "$2"
+	;;
+activate)
+	check_count "$#" "2"
+	cmd_activate "$2"
+	;;
+*)
+	print_usage
+	exit 1
+	;;
+esac

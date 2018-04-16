@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+set -e
+
+function print_usage {
+	echo "usage: gobin [<flags>] <command> [<args> ...]"
+	echo
+	echo "A little Bash script to install & update Go-based binaries on OSX."
+	echo
+	echo "Flags:"
+	echo
+	echo "  -h,  --help  Print a summary help and exit."
+	echo
+	echo "Commands:"
+	echo
+	echo "  install <package>"
+	echo "    Creates a temporary GOPATH, runs 'go get' with the given package, and copies any compiled binaries to '~/.gobin'."
+	echo "    e.g. 'gobin install golang.org/x/lint/golint/...'"
+	echo "    Please make sure '~/.gobin' is added to your PATH."
+	echo
+	echo "  update <binary>"
+	echo "    Finds the package through which the given binary was installed and runs 'gobin install <package>'."
+	echo "    e.g. 'gobin update golint'"
+	echo
+	echo "  uninstall <binary>"
+	echo "    Removes the given binary from '~/.gobin'."
+	echo "    e.g. 'gobin uninstall golint'"
+	echo
+}
+
+function cmd_install {
+	TMPDIR=$(mktemp -d -t "gobin")
+	trap 'rm -rf "$TMPDIR"' EXIT
+	mkdir -p "$TMPDIR/src" "$TMPDIR/pkg" "$TMPDIR/bin"
+	export GOPATH="$TMPDIR" 
+	unset GOBIN
+
+	go get -u "$1"
+	mkdir -p "$HOME/.gobin"
+	BINS="$(ls "$GOPATH/bin")"
+
+	if [[ -z $BINS ]]; then
+		echo "error: no binaries found"
+		exit 1
+	fi
+	
+	for BIN in "$BINS"; do 
+		cp "$GOPATH/bin/$BIN" "$HOME/.gobin/$BIN"
+		echo "$1" > "$HOME/.gobin/.$BIN"
+		echo "installed: $BIN at ~/.gobin/$BIN"
+	done
+}
+
+function cmd_update {
+	check_installed "$1"
+	cmd_install "$(cat "$HOME/.gobin/.$1")"
+}
+
+function cmd_uninstall {
+	check_installed "$1"
+	rm -f "$HOME/.gobin/$1"
+	rm -f "$HOME/.gobin/.$1"
+	echo "uninstalled: $1"
+}
+
+function check_installed {
+	if [[ ! -f "$HOME/.gobin/$1" ]]; then
+		echo "error: binary not installed"
+		exit 1
+	fi
+}
+
+function check_count {
+	if [[ "$1" != "$2" ]]; then
+		print_usage
+		exit 1
+	fi
+}
+
+case $1 in
+-h|--help)
+	check_count "$#" "1"
+	print_usage
+	exit 0
+	;;
+install)
+	check_count "$#" "2"
+	cmd_install "$2"
+	;;
+update)
+	check_count "$#" "2"
+	cmd_update "$2"
+	;;
+uninstall)
+	check_count "$#" "2"
+	cmd_uninstall "$2"
+	;;
+*)
+	print_usage
+	exit 1
+	;;
+esac
