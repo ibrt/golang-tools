@@ -1,9 +1,5 @@
 
-language: go
-
-go:
-  - 1.9.4
-  - 1.10.1
+language: generic
 
 os:
   - linux
@@ -12,5 +8,4 @@ os:
 install: true
 
 script:
-  - ./test/gobin-test.sh
-  - ./test/govm-test.sh
+  - ./test/test.sh
