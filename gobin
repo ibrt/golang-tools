@@ -29,7 +29,7 @@ function print_usage {
 }
 
 function cmd_install {
-	TMPDIR=$(mktemp -d -t "gobin")
+	TMPDIR=$(mktemp -d -t "gobin.XXXXXXXXXX")
 	trap 'rm -rf "$TMPDIR"' EXIT
 	mkdir -p "$TMPDIR/src" "$TMPDIR/pkg" "$TMPDIR/bin"
 	export GOPATH="$TMPDIR" 
