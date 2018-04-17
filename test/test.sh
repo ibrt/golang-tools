@@ -9,6 +9,7 @@ rm -rf "$HOME/.govm"
 rm -rf "$HOME/.gobin"
 which go && (echo 'error: go is already installed'; exit 1)
 which golint && (echo 'error: golint is already installed'; exit 1)
+export PATH="$HOME/.gobin:$PATH"
 
 echo "> install go"
 "$TRAVIS_BUILD_DIR/govm" install 1.10.1
