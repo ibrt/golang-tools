@@ -1,11 +1,7 @@
 
 language: generic
 sudo: required
-
-os:
-  - linux
-  - osx
-
+os: osx
 install: true
 
 script:
