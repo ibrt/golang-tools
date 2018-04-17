@@ -36,7 +36,6 @@ function cmd_install {
 	fi
 
 	TMPDIR=$(mktemp -d -t "govm.XXXXXXXXXX")
-	echo "XXX: $TMPDIR"
 	trap 'rm -rf "$TMPDIR"' EXIT
 
 	curl -o /dev/null -I -s -f "https://storage.googleapis.com/golang/go$1.darwin-amd64.tar.gz" || (echo "error: go$1 not found"; exit 1)
