@@ -4,11 +4,11 @@ set -e
 
 # setup
 [[ ! -z "$TRAVIS_BUILD_DIR" ]] || (echo 'error: $TRAVIS_BUILD_DIR unset'; exit 1)
-which go && (echo 'error: go is already installed'; exit 1)
-which golint && (echo 'error: golint is already installed'; exit 1)
 sudo rm -rf "/usr/local/bin/go"
 rm -rf "$HOME/.govm"
 rm -rf "$HOME/.gobin"
+which go && (echo 'error: go is already installed'; exit 1)
+which golint && (echo 'error: golint is already installed'; exit 1)
 
 echo "> install go"
 "$TRAVIS_BUILD_DIR/govm" install 1.10.1
