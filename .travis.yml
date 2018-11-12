@@ -4,4 +4,4 @@ os: osx
 install: true
 
 script:
-  - ./test/test.sh
+  - ./tools/tests.sh
