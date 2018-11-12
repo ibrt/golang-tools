@@ -71,7 +71,7 @@ function cmd_list {
 
 function check_installed {
 	if [[ ! -d "$HOME/.govm/go$1" ]]; then
-		(>&2 echo "error: go $1 is not installed")
+		echo "error: go $1 is not installed"
 		exit 1
 	fi
 }

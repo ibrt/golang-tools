@@ -45,4 +45,9 @@ which golint && (echo 'error: golint is not uninstalled'; exit 1)
 echo "> uninstall go 1.10.1"
 "$TRAVIS_BUILD_DIR/govm" uninstall 1.10.1
 [[ ! -d "$HOME/.govm/go1.10.1" ]] || (echo 'error: go is not uninstalled'; exit 1)
+
+echo "t1"
+
 which go && (echo 'error: go is not uninstalled'; exit 1)
+
+echo "$? : t2"
