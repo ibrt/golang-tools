@@ -39,6 +39,7 @@ golint
 echo "> uninstall golint"
 "$TRAVIS_BUILD_DIR/gobin" uninstall golint
 [[ ! -f "$HOME/.gobin/golint" ]] || (echo 'error: golint is not uninstalled'; exit 1)
+hash -r golint
 which golint && (echo 'error: golint is not uninstalled'; exit 1)
 
 # uninstall go
