@@ -36,7 +36,8 @@ Flags:
 Commands:
 
   install <package>
-    Creates a temporary GOPATH, runs 'go get <package>', and copies any binary from `$GOPATH/bin` to '~/.gobin'.
+./tools/gobin: line 17: /bin: is a directory
+    Creates a temporary GOPATH, runs 'go get <package>', copies any binary from  to '~/.gobin'.
     e.g. 'gobin install golang.org/x/lint/golint/...'
 
   update <binary>
