@@ -14,7 +14,7 @@ function print_usage {
 	echo "Commands:"
 	echo
 	echo "  install <package>"
-	echo "    Creates a temporary GOPATH, runs 'go get <package>', copies any binary from '\$GOPATH/bin' to '~/.gobin'."
+	echo "    Creates a temporary GOPATH, runs 'go get <package>', copies binaries from '\$GOPATH/bin' to '~/.gobin'."
 	echo "    e.g. 'gobin install golang.org/x/lint/golint/...'"
 	echo
 	echo "  update <binary>"
