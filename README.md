@@ -16,7 +16,9 @@ Optionally, add `~/.gobin` to the default `$PATH`:
 $ echo 'export PATH="$HOME/.gobin:$PATH"' >> ~/.bash_profile
 ```
 
-### gobin
+### Tools
+
+#### gobin
 
 This tool makes it easy to install & update Go-based binaries such as `golint`, `go-bindata`, etc. When the `gobin install <package>` command is invoked, a temporary GOPATH is created and `go get <package>` is executed. Any binary executable found under `$GOPATH/bin` is then copied to `~/.gobin`. Finally, the temporary GOPATH is removed.
 
@@ -50,7 +52,7 @@ Commands:
     e.g. 'gobin list'
 ```
 
-### govm
+#### govm
 
 This tool is a version manager for the Go toolchain. Installed Go toolchains are placed under `~/.govm/go<version>`. The `activate` command makes it easy to export the `$PATH` and `$GOROOT` environment variables needed to activate a specific version. To set a default version, add `eval $(govm activate <version>)` to your `~/.bash_profile`.
 
