@@ -5,7 +5,7 @@ set -e
 function print_usage {
 	echo "usage: govm [<flags>] <command> [<args> ...]"
 	echo ""
-	echo "Install & manage multiple versions of the Go toolchain on macOS."
+	echo "Install & manage multiple versions of the Go toolchain."
 	echo 
 	echo "Flags:"
 	echo
@@ -24,8 +24,8 @@ function print_usage {
 	echo
 	echo "  activate <version>"
 	echo "    Prints out the variable exports needed to use the given Go toolchain version."
-	echo "    Copy them to your '~/.bash_profile' (or equivalent) to activate this version as default."
-	echo "    Run 'eval \$(govm activate <version>)' to activate this version for the current session. "
+	echo "    Run 'eval $(govm activate <version>)' to activate this version for the current session."
+	echo "    Run 'echo 'eval $(govm activate <version>)' >> ~/.bash_profile' to set a default version."
 	echo
 	echo "  list"
 	echo "    Prints a list of installed Go toolchain versions."
