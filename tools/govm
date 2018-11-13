@@ -24,8 +24,8 @@ function print_usage {
 	echo
 	echo "  activate <version>"
 	echo "    Prints out the variable exports needed to use the given Go toolchain version."
-	echo "    Run 'eval $(govm activate <version>)' to activate this version for the current session."
-	echo "    Run 'echo 'eval $(govm activate <version>)' >> ~/.bash_profile' to set a default version."
+	echo "    Run 'eval \$(govm activate <version>)' to activate this version for the current session."
+	echo "    Run 'echo 'eval \$(govm activate <version>)' >> ~/.bash_profile' to set a default version."
 	echo
 	echo "  list"
 	echo "    Prints a list of installed Go toolchain versions."
