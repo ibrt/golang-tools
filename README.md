@@ -20,7 +20,7 @@ $ echo 'export PATH="$HOME/.gobin:$PATH"' >> ~/.bash_profile
 
 This tool makes it easy to install & update Go-based binaries such as `golint`, `go-bindata`, etc. When the `gobin install <package>` command is invoked, a temporary GOPATH is created and `go get <package>` is executed. Any binary executable found under `$GOPATH/bin` is then copied to `~/.gobin`. Finally, the temporary GOPATH is removed.
 
-The tool keeps track of the relationships between Go packages and binary executables. Updates and uninstalls can be requested using the binary name (e.g. `gobin update golint`).
+The tool keeps track of the relationships between Go packages and binary executables. Updates and uninstalls can be requested using the binary name (e.g. `gobin update golint`) instead of the corresponding package.
 
 ```
 usage: gobin [<flags>] <command> [<args> ...]
