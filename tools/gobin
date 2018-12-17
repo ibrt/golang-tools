@@ -38,6 +38,7 @@ function cmd_install {
 	export GOPATH="$TMPDIR" 
 	unset GOBIN
 
+	cd "$GOPATH"
 	go get -u "$1"
 	mkdir -p "$HOME/.gobin"
 	BINS="$(ls "$GOPATH/bin")"
