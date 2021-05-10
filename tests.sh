@@ -3,6 +3,7 @@
 set -e
 
 # setup
+sudo rm -rf "/usr/bin/go"
 sudo rm -rf "/usr/local/bin/go"
 rm -rf "$HOME/.govm"
 rm -rf "$HOME/.gobin"
