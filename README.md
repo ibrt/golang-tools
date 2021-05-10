@@ -5,18 +5,28 @@ Useful macOS tools for the savvy Go programmer.
 
 ### Installation
 
-#### Mac Os
+#### Mac OS
 
 ```
 $ brew tap ibrt/tap
 $ brew install golang-tools
 ```
 
-Optionally, add `~/.gobin` to the default `$PATH`:
+Add `~/.gobin` to the default `$PATH`:
 
 ```
+$ echo 'export PATH="$HOME/.gobin:$PATH"' >> ~/.bash_profile
 $ echo 'export PATH="$HOME/.gobin:$PATH"' >> ~/.zprofile
 ```
+
+### Uninstallation
+
+```
+$ brew uninstall golang-tools
+$ rm -rf "$HOME/.govm" "$HOME/.gobin"
+```
+
+#### Mac OS
 
 ### Tools
 
@@ -56,7 +66,7 @@ Commands:
 
 #### govm
 
-This tool is a version manager for the Go toolchain. Installed Go toolchains are placed under `~/.govm/go<version>`. The `activate` command makes it easy to export the `$PATH` and `$GOROOT` environment variables needed to activate a specific version. To set a default version, add `eval $(govm activate <version>)` to your `~/.bash_profile`.
+This tool is a version manager for the Go toolchain. Installed Go toolchains are placed under `~/.govm/go<version>`. The `activate` command makes it easy to export the `$PATH` and `$GOROOT` environment variables needed to activate a specific version. To set a default version, add `eval $(govm activate <version>)` to your `~/.bash_profile`, `~/.zprofile` or similar.
 
 ```
 usage: govm [<flags>] <command> [<args> ...]
