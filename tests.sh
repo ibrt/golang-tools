@@ -25,17 +25,22 @@ echo "> install another go"
 [[ -d "$HOME/.govm/go1.16.3" ]] || (echo 'error: go is not installed'; exit 1)
 
 echo "> list go versions"
+"./tools/govm" list
 LIST="$("./tools/govm" list)"
 [[ "$LIST" == "go1.16.3\n1.16.4\n" ]] || (echo 'error: unexpected list'; exit 1)
 
-# install golint
 echo "> install golint"
 "./tools/gobin" install "golang.org/x/lint/golint"
 [[ -f "$HOME/.gobin/golint" ]] || (echo 'error: golint is not installed'; exit 1)
 [[ "$(which golint)" == "$HOME/.gobin/golint" ]] || (echo 'error: golint is not found at the expected path'; exit 1)
 golint
 
-# update golint
+echo "> install gotest"
+"./tools/gobin" install "github.com/rakyll/gotest"
+[[ -f "$HOME/.gobin/gotest" ]] || (echo 'error: gotest is not installed'; exit 1)
+[[ "$(which gotest)" == "$HOME/.gobin/gotest" ]] || (echo 'error: gotest is not found at the expected path'; exit 1)
+golint
+
 echo "> update golint"
 "./tools/gobin" update golint
 [[ -f "$HOME/.gobin/golint" ]] || (echo 'error: golint is not installed'; exit 1)
