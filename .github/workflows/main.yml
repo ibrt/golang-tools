@@ -1,0 +1,22 @@
+name: validate
+
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test
+        run: ./tests.sh

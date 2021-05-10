@@ -33,9 +33,9 @@ function print_usage {
 
 function cmd_install {
 	TMPDIR=$(mktemp -d -t "gobin.XXXX")
-	trap 'rm -rf "$TMPDIR"' EXIT
+	trap 'chmod -R +w "$TMPDIR" && rm -rf "$TMPDIR"' EXIT
 	mkdir -p "$TMPDIR/src" "$TMPDIR/pkg" "$TMPDIR/bin"
-	export GOPATH="$TMPDIR" 
+	export GOPATH="$TMPDIR"
 	unset GOBIN
 
 	cd "$GOPATH"
@@ -47,8 +47,8 @@ function cmd_install {
 		echo "error: no binaries found"
 		exit 1
 	fi
-	
-	for BIN in "$BINS"; do 
+
+	for BIN in "$BINS"; do
 		cp "$GOPATH/bin/$BIN" "$HOME/.gobin/$BIN"
 		echo "$1" > "$HOME/.gobin/.$BIN"
 		echo "installed: $BIN at ~/.gobin/$BIN"
