@@ -19,14 +19,24 @@ $ echo 'export PATH="$HOME/.gobin:$PATH"' >> ~/.bash_profile
 $ echo 'export PATH="$HOME/.gobin:$PATH"' >> ~/.zprofile
 ```
 
+#### Linux
+
+Simply download the shell scripts from under `./tools` to somewhere in your `$PATH` (e.g. `/usr/local/bin`) and make them executable.
+
 ### Uninstallation
+
+#### Mac OS
 
 ```
 $ brew uninstall golang-tools
 $ rm -rf "$HOME/.govm" "$HOME/.gobin"
 ```
 
-#### Mac OS
+#### Linux
+
+```
+$ rm -rf /usr/local/bin/govm /usr/local/bin/gobin "$HOME/.govm" "$HOME/.gobin"
+```
 
 ### Tools
 
