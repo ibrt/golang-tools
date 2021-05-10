@@ -48,7 +48,7 @@ function cmd_install {
 		exit 1
 	fi
 
-	for BIN in "$BINS"; do
+	for BIN in $BINS; do
 		cp "$GOPATH/bin/$BIN" "$HOME/.gobin/$BIN"
 		echo "$1" > "$HOME/.gobin/.$BIN"
 		echo "installed: $BIN at ~/.gobin/$BIN"
