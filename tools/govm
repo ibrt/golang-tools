@@ -6,13 +6,13 @@ function print_usage {
 	echo "usage: govm [<flags>] <command> [<args> ...]"
 	echo ""
 	echo "Install & manage multiple versions of the Go toolchain."
-	echo 
+	echo
 	echo "Flags:"
 	echo
 	echo "  -h,  --help  Print a summary help and exit."
 	echo
 	echo "Commands:"
-	echo 
+	echo
 	echo "  install <version>"
 	echo "    Downloads the given Go toolchain version and installs it at '~/.govm/go<version>'."
 	echo "    Use the 'activate' command to activate an installed version."
@@ -39,7 +39,7 @@ function cmd_install {
 		exit 1
 	fi
 
-	TMPDIR=$(mktemp -d -t "govm")
+	TMPDIR=$(mktemp -d)
 	trap 'rm -rf "$TMPDIR"' EXIT
 
 	curl -o /dev/null -I -s -f "https://storage.googleapis.com/golang/go$1.darwin-amd64.tar.gz" || (echo "error: go$1 not found"; exit 1)
