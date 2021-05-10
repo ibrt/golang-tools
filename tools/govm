@@ -42,8 +42,9 @@ function cmd_install {
 	TMPDIR=$(mktemp -d)
 	trap 'rm -rf "$TMPDIR"' EXIT
 
-	curl -o /dev/null -I -s -f "https://storage.googleapis.com/golang/go$1.darwin-amd64.tar.gz" || (echo "error: go$1 not found"; exit 1)
-	curl -o "$TMPDIR/go.tar.gz" -q -# -f "https://storage.googleapis.com/golang/go$1.darwin-amd64.tar.gz"
+  OS="$(uname | tr '[:upper:]' '[:lower:]')"
+	curl -o /dev/null -I -s -f "https://storage.googleapis.com/golang/go$1.$OS-amd64.tar.gz" || (echo "error: go$1 not found"; exit 1)
+	curl -o "$TMPDIR/go.tar.gz" -q -# -f "https://storage.googleapis.com/golang/go$1.$OS-amd64.tar.gz"
 	echo -en "\033[1A\033[K"
 	tar -xf "$TMPDIR/go.tar.gz" -C "$TMPDIR"
 	mkdir -p "$HOME/.govm"
