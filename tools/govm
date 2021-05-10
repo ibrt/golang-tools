@@ -61,13 +61,13 @@ function cmd_uninstall {
 
 function cmd_activate {
 	check_installed "$1"
-	echo 'export GOROOT="$HOME/.govm/go'$1'"'
-	echo 'export PATH="$HOME/.govm/go'$1'/bin:$PATH"'
+	echo "export GOROOT=\"$HOME/.govm/go$1\""
+	echo "export PATH=\"$HOME/.govm/go$1/bin:$PATH\""
 	echo "# use 'eval \$(govm activate $1)' or add the exports to your '~/.bash_profile'"
 }
 
 function cmd_list {
-	ls "$HOME/.govm" | sed 's/^go//g'
+	find "$HOME/.govm" -name "go*" -maxdepth 1 -type d -exec basename {} \;
 }
 
 function check_installed {

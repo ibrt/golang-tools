@@ -68,7 +68,8 @@ function cmd_uninstall {
 }
 
 function cmd_list {
-	for BIN in $(ls "$HOME/.gobin"); do
+	for BIN in "$HOME"/.gobin/*; do
+	  BIN="$(basename "$BIN")"
 		echo "$BIN: $(cat "$HOME/.gobin/.$BIN")"
 	done
 }
