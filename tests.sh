@@ -15,11 +15,18 @@ echo "> install go"
 "./tools/govm" install 1.16.4
 [[ -d "$HOME/.govm/go1.16.4" ]] || (echo 'error: go is not installed'; exit 1)
 
-# activate go
 echo "> activate go"
 eval "$("./tools/govm" activate 1.16.4)"
 [[ "$(which go)" == "$HOME/.govm/go1.16.4/bin/go" ]] || (echo 'error: go is not activated'; exit 1)
 go version | grep "go1.16.4"
+
+echo "> install another go"
+"./tools/govm" install 1.16.3
+[[ -d "$HOME/.govm/go1.16.3" ]] || (echo 'error: go is not installed'; exit 1)
+
+echo "> list go versions"
+LIST="$("./tools/govm" list)"
+[[ "$LIST" == "go1.16.3\n1.16.4\n" ]] || (echo 'error: unexpected list'; exit 1)
 
 # install golint
 echo "> install golint"
