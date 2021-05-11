@@ -39,6 +39,9 @@ echo "> install gotest"
 [[ "$(which gotest)" == "$HOME/.gobin/gotest" ]] || (echo 'error: gotest is not found at the expected path'; exit 1)
 golint
 
+echo "> list bins"
+[[ "$("./tools/gobin" list | tr '\n' ' ')" == "golint: golang.org/x/lint/golint gotest: github.com/rakyll/gotest " ]] || (echo 'error: unexpected list'; exit 1)
+
 echo "> update golint"
 "./tools/gobin" update golint
 [[ -f "$HOME/.gobin/golint" ]] || (echo 'error: golint is not installed'; exit 1)
