@@ -25,7 +25,7 @@ echo "> install another go"
 [[ -d "$HOME/.govm/go1.16.3" ]] || (echo 'error: go is not installed'; exit 1)
 
 echo "> list go versions"
-[[ "$("./tools/govm" list | tr '\n' ' ')" == "go1.16.3 go1.16.4 " ]] || (echo 'error: unexpected list'; exit 1)
+[[ "$("./tools/govm" list | tr '\r\n' ' ')" == "1.16.3 1.16.4 " ]] || (echo 'error: unexpected list'; exit 1)
 
 echo "> install golint"
 "./tools/gobin" install "golang.org/x/lint/golint"
